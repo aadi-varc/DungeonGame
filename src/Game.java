@@ -29,31 +29,55 @@ public class Game {
 
             String move = scanner.nextLine();
 
+            // Move Up
             if(move.equalsIgnoreCase("W"))
             {
-                player.setRow(player.getRow() - 1);
+                int newRow = player.getRow() - 1;
+
+                if(map[newRow][player.getCol()] != '#')
+                {
+                    player.setRow(newRow);
+                }
             }
 
+            // Move Down
             if(move.equalsIgnoreCase("S"))
             {
-                player.setRow(player.getRow() + 1);
+                int newRow = player.getRow() + 1;
+
+                if(map[newRow][player.getCol()] != '#')
+                {
+                    player.setRow(newRow);
+                }
             }
 
+            // Move Left
             if(move.equalsIgnoreCase("A"))
             {
-                player.setCol(player.getCol() - 1);
+                int newCol = player.getCol() - 1;
+
+                if(map[player.getRow()][newCol] != '#')
+                {
+                    player.setCol(newCol);
+                }
             }
 
+            // Move Right
             if(move.equalsIgnoreCase("D"))
             {
-                player.setCol(player.getCol() + 1);
+                int newCol = player.getCol() + 1;
+
+                if(map[player.getRow()][newCol] != '#')
+                {
+                    player.setCol(newCol);
+                }
             }
         }
     }
 
     public static void updateMap(char[][] map, Player player)
     {
-        // Clear old player positions
+        // Remove old player position
         for(int row = 0; row < map.length; row++)
         {
             for(int col = 0; col < map[row].length; col++)
