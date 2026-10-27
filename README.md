@@ -141,7 +141,7 @@ Boss DMG  = 20
 
 - [x] Fixed dungeon map
 - [x] Player movement (WASD)
-- [ ] Wall collision detection
+- [x] Wall collision detection
 - [ ] Enemy encounters
 - [ ] Turn-based combat
 - [ ] Health system

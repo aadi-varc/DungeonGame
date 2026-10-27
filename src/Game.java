@@ -15,6 +15,9 @@ public class Game {
 
         Player player = new Player(100, 10, 1, 1);
 
+        int exitRow = 1;
+        int exitCol = 8;
+
         Scanner scanner = new Scanner(System.in);
 
         while(true)
@@ -72,7 +75,23 @@ public class Game {
                     player.setCol(newCol);
                 }
             }
+
+            // Check if player reached exit
+            if(player.getRow() == exitRow &&
+               player.getCol() == exitCol)
+            {
+                updateMap(map, player);
+                printMap(map);
+
+                System.out.println();
+                System.out.println("Congratulations!");
+                System.out.println("You escaped the dungeon!");
+
+                break;
+            }
         }
+
+        scanner.close();
     }
 
     public static void updateMap(char[][] map, Player player)
