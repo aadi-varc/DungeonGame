@@ -43,5 +43,25 @@ public class Enemy {
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
+	
+	public int getRow() {
+	    return row;
+	}
+
+	public void setRow(int row) {
+	    this.row = row;
+	}
+
+	public int getColumn() {
+	    return column;
+	}
+
+	public void setColumn(int column) {
+	    this.column = column;
+	}
+	
+	public boolean isDead() {
+	    return health <= 0;
+	}
 
 }
