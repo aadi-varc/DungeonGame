@@ -140,7 +140,7 @@ Boss DMG  = 20
 ### Core Features
 
 - [x] Fixed dungeon map
-- [ ] Player movement (WASD)
+- [x] Player movement (WASD)
 - [ ] Wall collision detection
 - [ ] Enemy encounters
 - [ ] Turn-based combat
