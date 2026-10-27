@@ -145,7 +145,7 @@ Boss DMG  = 20
 - [X] Enemy encounters
 - [X] Turn-based combat
 - [X] Health system
-- [ ] Boss battle
+- [X] Boss battle
 - [ ] Win condition
 - [ ] Lose condition
 - [ ] Restart option
@@ -382,8 +382,8 @@ Boss.java
 - [X] Player movement
 - [X] Enemy system
 - [X] Combat system
-- [ ] Boss battle
-- [ ] Health indicators
+- [X] Boss battle
+- [X] Health indicators
 - [ ] Win/Lose conditions
 - [ ] Restart/Quit options
 

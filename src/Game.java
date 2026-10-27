@@ -17,6 +17,8 @@ public class Game {
 
         Enemy enemy = new Enemy(40, 10, 1, 5);
 
+        Boss boss = new Boss(60, 10, 3, 6);
+
         int exitRow = 1;
         int exitCol = 8;
 
@@ -24,7 +26,7 @@ public class Game {
 
         while(true)
         {
-            updateMap(map, player, enemy);
+            updateMap(map, player, enemy, boss);
 
             printMap(map);
 
@@ -78,7 +80,7 @@ public class Game {
                 }
             }
 
-            // Enemy encounter
+            // Enemy battle
             if(player.getRow() == enemy.getRow() &&
                player.getCol() == enemy.getColumn() &&
                !enemy.isDead())
@@ -88,7 +90,6 @@ public class Game {
 
                 while(player.isAlive() && !enemy.isDead())
                 {
-                    // Player attacks
                     enemy.takeDamage(player.getAttack());
 
                     System.out.println("Player attacks!");
@@ -100,7 +101,6 @@ public class Game {
                         break;
                     }
 
-                    // Enemy attacks
                     player.takeDamage(enemy.attack());
 
                     System.out.println("Enemy attacks!");
@@ -115,17 +115,54 @@ public class Game {
                 }
             }
 
-            // Exit reached
-            if(player.getRow() == exitRow &&
-               player.getCol() == exitCol)
+            // Boss battle
+            if(player.getRow() == boss.getRow() &&
+               player.getCol() == boss.getColumn() &&
+               !boss.isDead())
             {
-                updateMap(map, player, enemy);
+                System.out.println();
+                System.out.println("Boss Battle Started!");
+
+                while(player.isAlive() && !boss.isDead())
+                {
+                    boss.takeDamage(player.getAttack());
+
+                    System.out.println("Player attacks Boss!");
+                    System.out.println("Boss HP: " + boss.getHealth());
+
+                    if(boss.isDead())
+                    {
+                        System.out.println("Boss Defeated!");
+                        break;
+                    }
+
+                    player.takeDamage(boss.attack());
+
+                    System.out.println("Boss attacks!");
+                    System.out.println("Player HP: " + player.getPlayerhp());
+
+                    if(!player.isAlive())
+                    {
+                        System.out.println("Game Over!");
+                        scanner.close();
+                        return;
+                    }
+                }
+            }
+
+            // Win condition
+            if(player.getRow() == exitRow &&
+               player.getCol() == exitCol &&
+               boss.isDead())
+            {
+                updateMap(map, player, enemy, boss);
 
                 printMap(map);
 
                 System.out.println();
                 System.out.println("Congratulations!");
                 System.out.println("You escaped the dungeon!");
+                System.out.println("You defeated the Boss and completed the game!");
 
                 break;
             }
@@ -134,24 +171,32 @@ public class Game {
         scanner.close();
     }
 
-    public static void updateMap(char[][] map, Player player, Enemy enemy)
+    public static void updateMap(char[][] map, Player player, Enemy enemy, Boss boss)
     {
         // Clear old positions
         for(int row = 0; row < map.length; row++)
         {
             for(int col = 0; col < map[row].length; col++)
             {
-                if(map[row][col] == 'P' || map[row][col] == 'E')
+                if(map[row][col] == 'P' ||
+                   map[row][col] == 'E' ||
+                   map[row][col] == 'B')
                 {
                     map[row][col] = '.';
                 }
             }
         }
 
-        // Place enemy if alive
+        // Place enemy
         if(!enemy.isDead())
         {
             map[enemy.getRow()][enemy.getColumn()] = 'E';
+        }
+
+        // Place boss
+        if(!boss.isDead())
+        {
+            map[boss.getRow()][boss.getColumn()] = 'B';
         }
 
         // Place player
