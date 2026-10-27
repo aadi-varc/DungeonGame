@@ -80,12 +80,39 @@ public class Game {
 
             // Enemy encounter
             if(player.getRow() == enemy.getRow() &&
-               player.getCol() == enemy.getColumn())
+               player.getCol() == enemy.getColumn() &&
+               !enemy.isDead())
             {
                 System.out.println();
                 System.out.println("Battle Started!");
 
-                break;
+                while(player.isAlive() && !enemy.isDead())
+                {
+                    // Player attacks
+                    enemy.takeDamage(player.getAttack());
+
+                    System.out.println("Player attacks!");
+                    System.out.println("Enemy HP: " + enemy.getHealth());
+
+                    if(enemy.isDead())
+                    {
+                        System.out.println("Enemy Defeated!");
+                        break;
+                    }
+
+                    // Enemy attacks
+                    player.takeDamage(enemy.attack());
+
+                    System.out.println("Enemy attacks!");
+                    System.out.println("Player HP: " + player.getPlayerhp());
+
+                    if(!player.isAlive())
+                    {
+                        System.out.println("Game Over!");
+                        scanner.close();
+                        return;
+                    }
+                }
             }
 
             // Exit reached
@@ -121,7 +148,7 @@ public class Game {
             }
         }
 
-        // Place enemy
+        // Place enemy if alive
         if(!enemy.isDead())
         {
             map[enemy.getRow()][enemy.getColumn()] = 'E';

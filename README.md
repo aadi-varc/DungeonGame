@@ -142,9 +142,9 @@ Boss DMG  = 20
 - [x] Fixed dungeon map
 - [x] Player movement (WASD)
 - [x] Wall collision detection
-- [ ] Enemy encounters
-- [ ] Turn-based combat
-- [ ] Health system
+- [X] Enemy encounters
+- [X] Turn-based combat
+- [X] Health system
 - [ ] Boss battle
 - [ ] Win condition
 - [ ] Lose condition
@@ -381,7 +381,7 @@ Boss.java
 - [x] Dungeon map displayed
 - [X] Player movement
 - [X] Enemy system
-- [ ] Combat system
+- [X] Combat system
 - [ ] Boss battle
 - [ ] Health indicators
 - [ ] Win/Lose conditions
