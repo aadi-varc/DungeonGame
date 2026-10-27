@@ -379,8 +379,8 @@ Boss.java
 - [x] Repository created
 - [x] Project structure created
 - [x] Dungeon map displayed
-- [ ] Player movement
-- [ ] Enemy system
+- [X] Player movement
+- [X] Enemy system
 - [ ] Combat system
 - [ ] Boss battle
 - [ ] Health indicators

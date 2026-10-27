@@ -15,6 +15,8 @@ public class Game {
 
         Player player = new Player(100, 10, 1, 1);
 
+        Enemy enemy = new Enemy(40, 10, 1, 5);
+
         int exitRow = 1;
         int exitCol = 8;
 
@@ -22,7 +24,7 @@ public class Game {
 
         while(true)
         {
-            updateMap(map, player);
+            updateMap(map, player, enemy);
 
             printMap(map);
 
@@ -76,11 +78,22 @@ public class Game {
                 }
             }
 
-            // Check if player reached exit
+            // Enemy encounter
+            if(player.getRow() == enemy.getRow() &&
+               player.getCol() == enemy.getColumn())
+            {
+                System.out.println();
+                System.out.println("Battle Started!");
+
+                break;
+            }
+
+            // Exit reached
             if(player.getRow() == exitRow &&
                player.getCol() == exitCol)
             {
-                updateMap(map, player);
+                updateMap(map, player, enemy);
+
                 printMap(map);
 
                 System.out.println();
@@ -94,21 +107,27 @@ public class Game {
         scanner.close();
     }
 
-    public static void updateMap(char[][] map, Player player)
+    public static void updateMap(char[][] map, Player player, Enemy enemy)
     {
-        // Remove old player position
+        // Clear old positions
         for(int row = 0; row < map.length; row++)
         {
             for(int col = 0; col < map[row].length; col++)
             {
-                if(map[row][col] == 'P')
+                if(map[row][col] == 'P' || map[row][col] == 'E')
                 {
                     map[row][col] = '.';
                 }
             }
         }
 
-        // Place player in new position
+        // Place enemy
+        if(!enemy.isDead())
+        {
+            map[enemy.getRow()][enemy.getColumn()] = 'E';
+        }
+
+        // Place player
         map[player.getRow()][player.getCol()] = 'P';
     }
 
