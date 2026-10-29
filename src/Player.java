@@ -1,11 +1,13 @@
 public class Player {
     private int playerhp = 100;
+    private final int maxHealth;
     private int attack = 10;
     private int row;
     private int col;
     
     public Player(int health, int damage, int startingRow, int startingColumn) {
     	this.playerhp = health;
+        this.maxHealth = health;
     	this.attack = damage;
     	this.row= startingRow;
     	this.col= startingColumn;
@@ -43,6 +45,12 @@ public int getPlayerhp() {
 
 public void setPlayerhp(int playerhp) {
 	this.playerhp = playerhp;
+}
+
+public int heal(int amount) {
+    int previousHealth = playerhp;
+    playerhp = Math.min(maxHealth, playerhp + amount);
+    return playerhp - previousHealth;
 }
 
 

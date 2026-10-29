@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Game {
 
+    private static final int EXIT_ROW = 1;
+    private static final int EXIT_COL = 8;
+
     public static void main(String[] args) {
 
         char[][] map =
@@ -13,14 +16,11 @@ public class Game {
             {'#','#','#','#','#','#','#','#','#','#'}
         };
 
-        Player player = new Player(100, 10, 1, 1);
+        Player player = new Player(100, 20, 1, 1);
 
         Enemy enemy = new Enemy(40, 10, 1, 5);
 
         Boss boss = new Boss(60, 10, 3, 6);
-
-        int exitRow = 1;
-        int exitCol = 8;
 
         Scanner scanner = new Scanner(System.in);
 
@@ -99,7 +99,7 @@ public class Game {
 
                 if(attackMove.equalsIgnoreCase("F"))
                 {
-                    enemy.takeDamage(20);
+                    enemy.takeDamage(player.getAttack());
 
                     System.out.println("Player attacks!");
                     System.out.println("Enemy HP: " + enemy.getHealth());
@@ -108,16 +108,16 @@ public class Game {
                     {
                         System.out.println("Enemy Defeated!");
 
-                        player.setPlayerhp(player.getPlayerhp() + 20);
+                        int healthRestored = player.heal(20);
 
                         System.out.println("Health Potion Found!");
-                        System.out.println("+20 HP Restored");
+                        System.out.println("+" + healthRestored + " HP Restored");
                         System.out.println("Current HP: " + player.getPlayerhp());
 
                         break;
                     }
 
-                    player.takeDamage(10);
+                    player.takeDamage(enemy.attack());
 
                     System.out.println("Enemy attacks!");
                     System.out.println("Player HP: " + player.getPlayerhp());
@@ -152,7 +152,7 @@ public class Game {
 
                     if(attackMove.equalsIgnoreCase("F"))
                     {
-                        boss.takeDamage(20);
+                        boss.takeDamage(player.getAttack());
 
                         System.out.println("Player attacks Boss!");
                         System.out.println("Boss HP: " + boss.getHealth());
@@ -163,7 +163,7 @@ public class Game {
                         break;
                     }
 
-                    player.takeDamage(15);
+                    player.takeDamage(boss.attack());
 
                     System.out.println("Boss attacks!");
                     System.out.println("Player HP: " + player.getPlayerhp());
@@ -179,20 +179,23 @@ public class Game {
         }
 
             // Win condition
-            if(player.getRow() == exitRow &&
-               player.getCol() == exitCol &&
-               boss.isDead())
+            if(player.getRow() == EXIT_ROW && player.getCol() == EXIT_COL)
             {
-                updateMap(map, player, enemy, boss);
+                if(boss.isDead())
+                {
+                    updateMap(map, player, enemy, boss);
 
-                printMap(map);
+                    printMap(map);
 
-                System.out.println();
-                System.out.println("Congratulations!");
-                System.out.println("You escaped the dungeon!");
-                System.out.println("You defeated the Boss and completed the game!");
+                    System.out.println();
+                    System.out.println("Congratulations!");
+                    System.out.println("You escaped the dungeon!");
+                    System.out.println("You defeated the Boss and completed the game!");
 
-                break;
+                    break;
+                }
+
+                System.out.println("Defeat the boss before leaving the dungeon!");
             }
         }
 
@@ -214,6 +217,9 @@ public class Game {
                 }
             }
         }
+
+        // Restore the exit if the player previously stood on it.
+        map[EXIT_ROW][EXIT_COL] = 'X';
 
         // Place enemy
         if(!enemy.isDead())
