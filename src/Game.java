@@ -82,15 +82,24 @@ public class Game {
 
             // Enemy battle
             if(player.getRow() == enemy.getRow() &&
-               player.getCol() == enemy.getColumn() &&
-               !enemy.isDead())
+                player.getCol() == enemy.getColumn() &&
+                !enemy.isDead())
             {
                 System.out.println();
                 System.out.println("Battle Started!");
 
                 while(player.isAlive() && !enemy.isDead())
                 {
-                    enemy.takeDamage(player.getAttack());
+                    System.out.println();
+                    System.out.println("Player HP: " + player.getPlayerhp());
+                    System.out.println("Enemy HP: " + enemy.getHealth());
+                    System.out.println("Press F to attack");
+
+                    String attackMove = scanner.nextLine();
+
+                if(attackMove.equalsIgnoreCase("F"))
+                {
+                    enemy.takeDamage(20);
 
                     System.out.println("Player attacks!");
                     System.out.println("Enemy HP: " + enemy.getHealth());
@@ -98,10 +107,17 @@ public class Game {
                     if(enemy.isDead())
                     {
                         System.out.println("Enemy Defeated!");
+
+                        player.setPlayerhp(player.getPlayerhp() + 20);
+
+                        System.out.println("Health Potion Found!");
+                        System.out.println("+20 HP Restored");
+                        System.out.println("Current HP: " + player.getPlayerhp());
+
                         break;
                     }
 
-                    player.takeDamage(enemy.attack());
+                    player.takeDamage(10);
 
                     System.out.println("Enemy attacks!");
                     System.out.println("Player HP: " + player.getPlayerhp());
@@ -110,33 +126,44 @@ public class Game {
                     {
                         System.out.println("Game Over!");
                         scanner.close();
-                        return;
+                    return;
                     }
                 }
             }
+        }
+
 
             // Boss battle
             if(player.getRow() == boss.getRow() &&
-               player.getCol() == boss.getColumn() &&
-               !boss.isDead())
+                player.getCol() == boss.getColumn() &&
+                !boss.isDead())
             {
                 System.out.println();
                 System.out.println("Boss Battle Started!");
 
                 while(player.isAlive() && !boss.isDead())
                 {
-                    boss.takeDamage(player.getAttack());
-
-                    System.out.println("Player attacks Boss!");
+                    System.out.println();
+                    System.out.println("Player HP: " + player.getPlayerhp());
                     System.out.println("Boss HP: " + boss.getHealth());
+                    System.out.println("Press F to attack");
 
-                    if(boss.isDead())
+                    String attackMove = scanner.nextLine();
+
+                    if(attackMove.equalsIgnoreCase("F"))
+                    {
+                        boss.takeDamage(20);
+
+                        System.out.println("Player attacks Boss!");
+                        System.out.println("Boss HP: " + boss.getHealth());
+
+                        if(boss.isDead())
                     {
                         System.out.println("Boss Defeated!");
                         break;
                     }
 
-                    player.takeDamage(boss.attack());
+                    player.takeDamage(15);
 
                     System.out.println("Boss attacks!");
                     System.out.println("Player HP: " + player.getPlayerhp());
@@ -149,6 +176,7 @@ public class Game {
                     }
                 }
             }
+        }
 
             // Win condition
             if(player.getRow() == exitRow &&
