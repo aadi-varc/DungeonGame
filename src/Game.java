@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Game {
 
-
     public static void main(String[] args) {
 
 
@@ -23,16 +22,13 @@ public class Game {
 
         Player player = new Player(100, 10, 1, 1);
 
-
         Enemy enemy = new Enemy(40, 10, 1, 5);
 
 
         Boss boss = new Boss(60, 10, 3, 6);
 
-
-        int exitRow = 7;
-        int exitCol = 13;
-
+        int exitRow = 1;
+        int exitCol = 8;
 
         Scanner scanner = new Scanner(System.in);
 
@@ -124,11 +120,9 @@ public class Game {
 
                     String attackMove = scanner.nextLine();
 
-
-                    if(attackMove.equalsIgnoreCase("F"))
-                    {
-                        enemy.takeDamage(20);
-
+                if(attackMove.equalsIgnoreCase("F"))
+                {
+                    enemy.takeDamage(20);
 
                         System.out.println("Player attacks!");
                         System.out.println("Enemy HP: " + enemy.getHealth());
@@ -139,20 +133,17 @@ public class Game {
                             System.out.println("Enemy Defeated!");
 
 
-                            player.setPlayerhp(player.getPlayerhp() + 20);
+                        player.setPlayerhp(player.getPlayerhp() + 20);
 
-
-                            System.out.println("Health Potion Found!");
-                            System.out.println("+20 HP Restored");
-                            System.out.println("Current HP: " + player.getPlayerhp());
-
+                        System.out.println("Health Potion Found!");
+                        System.out.println("+20 HP Restored");
+                        System.out.println("Current HP: " + player.getPlayerhp());
 
                             break;
                         }
 
 
-                        player.takeDamage(10);
-
+                    player.takeDamage(10);
 
                         System.out.println("Enemy attacks!");
                         System.out.println("Player HP: " + player.getPlayerhp());
@@ -210,7 +201,6 @@ public class Game {
                     {
                         boss.takeDamage(20);
 
-
                         System.out.println("Player attacks Boss!");
                         System.out.println("Boss HP: " + boss.getHealth());
 
@@ -222,8 +212,7 @@ public class Game {
                         }
 
 
-                        player.takeDamage(15);
-
+                    player.takeDamage(15);
 
                         System.out.println("Boss attacks!");
                         System.out.println("Player HP: " + player.getPlayerhp());
@@ -264,32 +253,14 @@ public class Game {
             {
                 updateMap(map, player, enemy, boss);
 
-
                 printMap(map);
 
+                    System.out.println();
+                    System.out.println("Congratulations!");
+                    System.out.println("You escaped the dungeon!");
+                    System.out.println("You defeated the Boss and completed the game!");
 
-                System.out.println();
-                System.out.println("Congratulations!");
-                System.out.println("You escaped the dungeon!");
-                System.out.println("You defeated the Boss and completed the game!");
-
-
-                System.out.println();
-                System.out.println("Press R to restart or Q to quit");
-
-
-                String choice = scanner.nextLine();
-
-
-                if(choice.equalsIgnoreCase("Q"))
-                {
-                    break;
-                }
-                else if(choice.equalsIgnoreCase("R"))
-                {
-                    main(new String[0]);
-                    return;
-                }
+                break;
             }
         }
 
@@ -313,7 +284,6 @@ public class Game {
                 }
             }
         }
-
 
         // Place enemy
         if(!enemy.isDead())
