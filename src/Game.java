@@ -40,6 +40,7 @@ public class Game {
         while (true) {
             updateMap(map, player, enemy, boss, exitRow, exitCol);
 
+            clearScreen();
             printMap(map);
 
             System.out.println();
@@ -118,6 +119,8 @@ public class Game {
                             System.out.println("Health Potion Found!");
                             System.out.println("+" + healthRestored + " HP Restored");
                             System.out.println("Current HP: " + player.getPlayerhp());
+                            System.out.println("Press Enter to continue");
+                            scanner.nextLine();
 
                             break;
                         }
@@ -170,6 +173,8 @@ public class Game {
 
                         if (boss.isDead()) {
                             System.out.println("Boss Defeated!");
+                            System.out.println("Press Enter to continue");
+                            scanner.nextLine();
                             break;
                         }
 
@@ -204,6 +209,8 @@ public class Game {
                     boss.isDead()) {
                 if (round == 1) {
                     System.out.println("Round 1 complete! Starting round 2.");
+                    System.out.println("Press Enter to continue");
+                    scanner.nextLine();
 
                     round = 2;
                     player.setRow(1);
@@ -220,6 +227,7 @@ public class Game {
 
                 updateMap(map, player, enemy, boss, exitRow, exitCol);
 
+                clearScreen();
                 printMap(map);
 
                 System.out.println();
@@ -242,6 +250,11 @@ public class Game {
         }
 
         scanner.close();
+    }
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     public static void updateMap(char[][] map, Player player, Enemy enemy, Boss boss, int exitRow, int exitCol) {
