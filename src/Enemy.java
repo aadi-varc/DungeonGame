@@ -1,8 +1,8 @@
 public class Enemy {
-	int health;
+	private int health;
 	int damage;
-	int row;
-	int column;
+	private int row;
+	private int column;
 	
 	public Enemy(int startingHealth,int startingDamage,int startingRow,int startingColumn) 
 	{
