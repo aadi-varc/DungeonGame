@@ -33,6 +33,7 @@ public class Game {
 
         int exitRow = 7;
         int exitCol = 14;
+        int round = 1;
 
         Scanner scanner = new Scanner(System.in);
 
@@ -121,7 +122,7 @@ public class Game {
                             break;
                         }
 
-                        player.takeDamage(10);
+                        player.takeDamage(enemy.attack());
 
                         System.out.println("Enemy attacks!");
                         System.out.println("Player HP: " + player.getPlayerhp());
@@ -201,6 +202,22 @@ public class Game {
             if (player.getRow() == exitRow &&
                     player.getCol() == exitCol &&
                     boss.isDead()) {
+                if (round == 1) {
+                    System.out.println("Round 1 complete! Starting round 2.");
+
+                    round = 2;
+                    player.setRow(1);
+                    player.setCol(1);
+                    enemy = new Enemy(50, 20, 3, 10);
+                    boss = new Boss(60, 10, 6, 7);
+
+                    // Move the entrance to the other side of the boss's tunnel.
+                    map[5][6] = '.';
+                    map[5][7] = '.';
+                    map[5][14] = '#';
+                    continue;
+                }
+
                 updateMap(map, player, enemy, boss, exitRow, exitCol);
 
                 printMap(map);
