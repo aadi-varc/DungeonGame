@@ -49,10 +49,19 @@ public class Game {
                     !boss.isDead()) {
                 System.out.println("Defeat the Boss first");
             }
-            System.out.println("Player HP: " + player.getPlayerhp());
-            System.out.println("Use W A S D to move");
+            System.out.println("Round: " + round + " of 2 | Player HP: " + player.getPlayerhp());
+            if (boss.isDead()) {
+                System.out.println("Objective: Reach X to finish this round");
+            } else {
+                System.out.println("Objective: Defeat the Boss, then reach X");
+            }
+            System.out.println("W A S D: Move | Q: Quit");
 
-            String move = scanner.nextLine();
+            String move = readCommand(scanner);
+            if (move.equalsIgnoreCase("Q")) {
+                scanner.close();
+                return;
+            }
 
             // Move Up
             if (move.equalsIgnoreCase("W")) {
@@ -94,50 +103,59 @@ public class Game {
             if (player.getRow() == enemy.getRow() &&
                     player.getCol() == enemy.getColumn() &&
                     !enemy.isDead()) {
-                System.out.println();
-                System.out.println("Battle Started!");
+                updateMap(map, player, enemy, boss, exitRow, exitCol);
+                String battleMessage = "Battle Started!";
 
                 while (player.isAlive() && !enemy.isDead()) {
-                    System.out.println();
-                    System.out.println("Player HP: " + player.getPlayerhp());
+                    printBattleScreen(map, player, round);
+                    System.out.println(battleMessage);
                     System.out.println("Enemy HP: " + enemy.getHealth());
-                    System.out.println("Press F to attack");
+                    System.out.println("Press F to attack or Q to quit");
 
-                    String attackMove = scanner.nextLine();
+                    String attackMove = readCommand(scanner);
+                    if (attackMove.equalsIgnoreCase("Q")) {
+                        scanner.close();
+                        return;
+                    }
 
                     if (attackMove.equalsIgnoreCase("F")) {
+                        int enemyHealthBeforeAttack = enemy.getHealth();
                         enemy.takeDamage(20);
 
-                        System.out.println("Player attacks!");
-                        System.out.println("Enemy HP: " + enemy.getHealth());
+                        battleMessage = "You dealt " + (enemyHealthBeforeAttack - enemy.getHealth()) + " damage!";
 
                         if (enemy.isDead()) {
-                            System.out.println("Enemy Defeated!");
-
                             int healthRestored = player.heal(20);
 
+                            printBattleScreen(map, player, round);
+                            System.out.println(battleMessage);
+                            System.out.println("Enemy HP: " + enemy.getHealth());
+                            System.out.println("Enemy Defeated!");
                             System.out.println("Health Potion Found!");
                             System.out.println("+" + healthRestored + " HP Restored");
-                            System.out.println("Current HP: " + player.getPlayerhp());
-                            System.out.println("Press Enter to continue");
-                            scanner.nextLine();
+                            if (!waitForContinue(scanner)) {
+                                scanner.close();
+                                return;
+                            }
 
                             break;
                         }
 
+                        int playerHealthBeforeAttack = player.getPlayerhp();
                         player.takeDamage(enemy.attack());
 
-                        System.out.println("Enemy attacks!");
-                        System.out.println("Player HP: " + player.getPlayerhp());
+                        battleMessage += "\nEnemy dealt " + (playerHealthBeforeAttack - player.getPlayerhp()) + " damage!";
 
                         if (!player.isAlive()) {
+                            printBattleScreen(map, player, round);
+                            System.out.println(battleMessage);
+                            System.out.println("Enemy HP: " + enemy.getHealth());
                             System.out.println("Game Over!");
 
                             System.out.println();
                             System.out.println("Press R to restart or Q to quit");
 
-                            String choice = scanner.nextLine();
-
+                            String choice = readCommand(scanner);
                             if (choice.equalsIgnoreCase("R")) {
                                 main(new String[0]);
                                 return;
@@ -154,43 +172,54 @@ public class Game {
             if (player.getRow() == boss.getRow() &&
                     player.getCol() == boss.getColumn() &&
                     !boss.isDead()) {
-                System.out.println();
-                System.out.println("Boss Battle Started!");
+                updateMap(map, player, enemy, boss, exitRow, exitCol);
+                String battleMessage = "Boss Battle Started!";
 
                 while (player.isAlive() && !boss.isDead()) {
-                    System.out.println();
-                    System.out.println("Player HP: " + player.getPlayerhp());
+                    printBattleScreen(map, player, round);
+                    System.out.println(battleMessage);
                     System.out.println("Boss HP: " + boss.getHealth());
-                    System.out.println("Press F to attack");
+                    System.out.println("Press F to attack or Q to quit");
 
-                    String attackMove = scanner.nextLine();
+                    String attackMove = readCommand(scanner);
+                    if (attackMove.equalsIgnoreCase("Q")) {
+                        scanner.close();
+                        return;
+                    }
 
                     if (attackMove.equalsIgnoreCase("F")) {
+                        int bossHealthBeforeAttack = boss.getHealth();
                         boss.takeDamage(20);
 
-                        System.out.println("Player attacks Boss!");
-                        System.out.println("Boss HP: " + boss.getHealth());
+                        battleMessage = "You dealt " + (bossHealthBeforeAttack - boss.getHealth()) + " damage to the Boss!";
 
                         if (boss.isDead()) {
+                            printBattleScreen(map, player, round);
+                            System.out.println(battleMessage);
+                            System.out.println("Boss HP: " + boss.getHealth());
                             System.out.println("Boss Defeated!");
-                            System.out.println("Press Enter to continue");
-                            scanner.nextLine();
+                            if (!waitForContinue(scanner)) {
+                                scanner.close();
+                                return;
+                            }
                             break;
                         }
 
+                        int playerHealthBeforeAttack = player.getPlayerhp();
                         player.takeDamage(15);
 
-                        System.out.println("Boss attacks!");
-                        System.out.println("Player HP: " + player.getPlayerhp());
+                        battleMessage += "\nBoss dealt " + (playerHealthBeforeAttack - player.getPlayerhp()) + " damage!";
 
                         if (!player.isAlive()) {
+                            printBattleScreen(map, player, round);
+                            System.out.println(battleMessage);
+                            System.out.println("Boss HP: " + boss.getHealth());
                             System.out.println("Game Over!");
 
                             System.out.println();
                             System.out.println("Press R to restart or Q to quit");
 
-                            String choice = scanner.nextLine();
-
+                            String choice = readCommand(scanner);
                             if (choice.equalsIgnoreCase("R")) {
                                 main(new String[0]);
                                 return;
@@ -209,8 +238,10 @@ public class Game {
                     boss.isDead()) {
                 if (round == 1) {
                     System.out.println("Round 1 complete! Starting round 2.");
-                    System.out.println("Press Enter to continue");
-                    scanner.nextLine();
+                    if (!waitForContinue(scanner)) {
+                        scanner.close();
+                        return;
+                    }
 
                     round = 2;
                     player.setRow(1);
@@ -238,8 +269,7 @@ public class Game {
                 System.out.println();
                 System.out.println("Press R to restart or Q to quit");
 
-                String choice = scanner.nextLine();
-
+                String choice = readCommand(scanner);
                 if (choice.equalsIgnoreCase("Q")) {
                     break;
                 } else if (choice.equalsIgnoreCase("R")) {
@@ -250,6 +280,22 @@ public class Game {
         }
 
         scanner.close();
+    }
+
+    private static String readCommand(Scanner scanner) {
+        return scanner.hasNextLine() ? scanner.nextLine() : "Q";
+    }
+
+    private static boolean waitForContinue(Scanner scanner) {
+        System.out.println("Press Enter to continue or Q to quit");
+        return !readCommand(scanner).equalsIgnoreCase("Q");
+    }
+
+    private static void printBattleScreen(char[][] map, Player player, int round) {
+        clearScreen();
+        printMap(map);
+        System.out.println();
+        System.out.println("Round: " + round + " of 2 | Player HP: " + player.getPlayerhp());
     }
 
     public static void clearScreen() {
