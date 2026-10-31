@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Game {
 
+    private static final int TOTAL_ROUNDS = 2;
+    private static final int POTION_HEAL = 20;
+
     public static void main(String[] args) {
 
         char[][] map = {
@@ -49,7 +52,7 @@ public class Game {
                     !boss.isDead()) {
                 System.out.println("Defeat the Boss first");
             }
-            System.out.println("Round: " + round + " of 2 | Player HP: " + player.getPlayerhp());
+            System.out.println("Round: " + round + " of " + TOTAL_ROUNDS + " | Player HP: " + player.getPlayerhp());
             if (boss.isDead()) {
                 System.out.println("Objective: Reach X to finish this round");
             } else {
@@ -125,7 +128,7 @@ public class Game {
                         battleMessage = "You dealt " + (enemyHealthBeforeAttack - enemy.getHealth()) + " damage!";
 
                         if (enemy.isDead()) {
-                            int healthRestored = player.heal(20);
+                            int healthRestored = player.heal(POTION_HEAL);
 
                             printBattleScreen(map, player, round);
                             System.out.println(battleMessage);
@@ -236,14 +239,14 @@ public class Game {
             if (player.getRow() == exitRow &&
                     player.getCol() == exitCol &&
                     boss.isDead()) {
-                if (round == 1) {
-                    System.out.println("Round 1 complete! Starting round 2.");
+                if (round < TOTAL_ROUNDS) {
+                    System.out.println("Round " + round + " complete! Starting round " + (round + 1) + ".");
                     if (!waitForContinue(scanner)) {
                         scanner.close();
                         return;
                     }
 
-                    round = 2;
+                    round++;
                     player.setRow(1);
                     player.setCol(1);
                     enemy = new Enemy(50, 20, 3, 10);
@@ -295,7 +298,7 @@ public class Game {
         clearScreen();
         printMap(map);
         System.out.println();
-        System.out.println("Round: " + round + " of 2 | Player HP: " + player.getPlayerhp());
+        System.out.println("Round: " + round + " of " + TOTAL_ROUNDS + " | Player HP: " + player.getPlayerhp());
     }
 
     public static void clearScreen() {
