@@ -1,24 +1,22 @@
 # 🎮 Dungeon Adventure Game
 
-> Final Java Project for Mathematical Programming
+Final Java Project for Mathematical Programming
 
----
 
 ## 👥 Team Members
 
 - Adrian Gonsalves
-- Aaditya
-- Rohit
+- Aaditya Bhusal
+- Rohit Manjunath
 
----
 
 ## 📖 Project Overview
 
-Dungeon Adventure Game is a simple turn-based adventure game developed in Java.
+Dungeon Adventure Game is a simple adventure game developed in Java.
 
-The player explores a dungeon, encounters enemies, defeats a final boss, and reaches the exit to win the game.
+The player explores a dungeon, encounters enemies, collects potion, defeats the final boss, and reaches the exit to win the game.
 
-The primary purpose of this project is to demonstrate the Java concepts learned throughout the course, including:
+This project is primarily focused on demonstrating understanding of Java programming concepts learned during the course lectures such as :
 
 - Variables
 - Methods and Functions
@@ -30,9 +28,9 @@ The primary purpose of this project is to demonstrate the Java concepts learned 
 - User Input
 - Inheritance
 
-The project is intentionally designed to be slightly more advanced than the classroom assignments while remaining achievable within our current skill level.
+The project is intentionally designed to be slightly more advanced than the classroom assignments while remaining achievable within our current skill level and
+rather than creating a fully featured commercial game with gui and feeback per move , we intended to make this a small collaborative team project where we communicate with each other, update things, polish the game and determine what we could achieve.
 
----
 
 ## 🎯 Project Goals
 
@@ -42,8 +40,8 @@ The player must:
 - Avoid walls
 - Defeat enemies
 - Defeat the final boss
+ Survive with remaining health
 - Reach the exit
-- Survive with remaining health
 
 ### ✅ Win Condition
 
@@ -56,9 +54,8 @@ The player wins if:
 
 The player loses if:
 
-- Health reaches zero
+- Health (HP) reaches zero
 
----
 
 ## 🗺️ Example Dungeon Layout
 
@@ -151,13 +148,6 @@ Boss DMG  = 20
 - [X] Restart option
 - [X] Quit option
 
-### Possible Extension
-
-If time permits, we may experiment with a simple graphical interface.
-
-Since graphical programming has not been a major focus of the course, any graphical elements will only be used as an enhancement and not as a replacement for the core game logic implemented by the team.
-
----
 
 ## 🧠 Java Concepts Used
 
@@ -281,8 +271,6 @@ DungeonGame
 │   ├── Enemy.java
 │   └── Boss.java
 │
-├── docs
-│   └── project-plan.md
 │
 └── README.md
 ```
@@ -369,35 +357,7 @@ Boss.java
 ### Phase 5
 
 - Restart system
-- Final testing
+- Final testing and polishing of the project
 - Optional graphical improvements
 
----
 
-## 📊 Current Progress
-
-- [x] Repository created
-- [x] Project structure created
-- [x] Dungeon map displayed
-- [X] Player movement
-- [X] Enemy system
-- [X] Combat system
-- [X] Boss battle
-- [X] Health indicators
-- [X] Win/Lose conditions
-- [X] Restart/Quit options
-
----
-
-## 📝 Notes
-
-This project is primarily focused on demonstrating understanding of Java programming concepts learned during the course.
-
-The emphasis is on:
-
-- Clean code structure
-- Object-oriented programming
-- Problem-solving
-- Team collaboration
-
-rather than creating a fully featured commercial game.

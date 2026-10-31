@@ -61,13 +61,13 @@ public class Game {
             System.out.println("W A S D: Move | Q: Quit");
 
             String move = readCommand(scanner);
-            if (move.equalsIgnoreCase("Q")) {
+            if (move.equals("Q")) {
                 scanner.close();
                 return;
             }
 
             // Move Up
-            if (move.equalsIgnoreCase("W")) {
+            if (move.equals("W")) {
                 int newRow = player.getRow() - 1;
 
                 if (map[newRow][player.getCol()] != '#') {
@@ -76,7 +76,7 @@ public class Game {
             }
 
             // Move Down
-            if (move.equalsIgnoreCase("S")) {
+            if (move.equals("S")) {
                 int newRow = player.getRow() + 1;
 
                 if (map[newRow][player.getCol()] != '#') {
@@ -85,7 +85,7 @@ public class Game {
             }
 
             // Move Left
-            if (move.equalsIgnoreCase("A")) {
+            if (move.equals("A")) {
                 int newCol = player.getCol() - 1;
 
                 if (map[player.getRow()][newCol] != '#') {
@@ -94,7 +94,7 @@ public class Game {
             }
 
             // Move Right
-            if (move.equalsIgnoreCase("D")) {
+            if (move.equals("D")) {
                 int newCol = player.getCol() + 1;
 
                 if (map[player.getRow()][newCol] != '#') {
@@ -116,12 +116,12 @@ public class Game {
                     System.out.println("Press F to attack or Q to quit");
 
                     String attackMove = readCommand(scanner);
-                    if (attackMove.equalsIgnoreCase("Q")) {
+                    if (attackMove.equals("Q")) {
                         scanner.close();
                         return;
                     }
 
-                    if (attackMove.equalsIgnoreCase("F")) {
+                    if (attackMove.equals("F")) {
                         int enemyHealthBeforeAttack = enemy.getHealth();
                         enemy.takeDamage(20);
 
@@ -159,7 +159,7 @@ public class Game {
                             System.out.println("Press R to restart or Q to quit");
 
                             String choice = readCommand(scanner);
-                            if (choice.equalsIgnoreCase("R")) {
+                            if (choice.equals("R")) {
                                 main(new String[0]);
                                 return;
                             } else {
@@ -185,12 +185,12 @@ public class Game {
                     System.out.println("Press F to attack or Q to quit");
 
                     String attackMove = readCommand(scanner);
-                    if (attackMove.equalsIgnoreCase("Q")) {
+                    if (attackMove.equals("Q")) {
                         scanner.close();
                         return;
                     }
 
-                    if (attackMove.equalsIgnoreCase("F")) {
+                    if (attackMove.equals("F")) {
                         int bossHealthBeforeAttack = boss.getHealth();
                         boss.takeDamage(20);
 
@@ -223,7 +223,7 @@ public class Game {
                             System.out.println("Press R to restart or Q to quit");
 
                             String choice = readCommand(scanner);
-                            if (choice.equalsIgnoreCase("R")) {
+                            if (choice.equals("R")) {
                                 main(new String[0]);
                                 return;
                             } else {
@@ -273,9 +273,9 @@ public class Game {
                 System.out.println("Press R to restart or Q to quit");
 
                 String choice = readCommand(scanner);
-                if (choice.equalsIgnoreCase("Q")) {
+                if (choice.equals("Q")) {
                     break;
-                } else if (choice.equalsIgnoreCase("R")) {
+                } else if (choice.equals("R")) {
                     main(new String[0]);
                     return;
                 }
@@ -291,7 +291,7 @@ public class Game {
 
     private static boolean waitForContinue(Scanner scanner) {
         System.out.println("Press Enter to continue or Q to quit");
-        return !readCommand(scanner).equalsIgnoreCase("Q");
+        return !readCommand(scanner).equals("Q");
     }
 
     private static void printBattleScreen(char[][] map, Player player, int round) {
