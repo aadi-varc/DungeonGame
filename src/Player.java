@@ -1,7 +1,7 @@
 public class Player {
-    private int playerhp = 100;
+    private int playerhp;
     private final int maxHealth;
-    private int attack = 10;
+    private int attack;
     private int row;
     private int col;
     
