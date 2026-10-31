@@ -28,7 +28,7 @@ public class Game {
                         '#', '#', '#', '#' }
         };
 
-        Player player = new Player(100, 10, 1, 1);
+        Player player = new Player(100, 20, 1, 1);
 
         Enemy enemy = new Enemy(40, 10, 1, 5);
 
@@ -123,7 +123,7 @@ public class Game {
 
                     if (attackMove.equals("F")) {
                         int enemyHealthBeforeAttack = enemy.getHealth();
-                        enemy.takeDamage(20);
+                        enemy.takeDamage(player.getAttack());
 
                         battleMessage = "You dealt " + (enemyHealthBeforeAttack - enemy.getHealth()) + " damage!";
 
@@ -192,7 +192,7 @@ public class Game {
 
                     if (attackMove.equals("F")) {
                         int bossHealthBeforeAttack = boss.getHealth();
-                        boss.takeDamage(20);
+                        boss.takeDamage(player.getAttack());
 
                         battleMessage = "You dealt " + (bossHealthBeforeAttack - boss.getHealth()) + " damage to the Boss!";
 
@@ -209,7 +209,7 @@ public class Game {
                         }
 
                         int playerHealthBeforeAttack = player.getPlayerhp();
-                        player.takeDamage(15);
+                        player.takeDamage(boss.attack());
 
                         battleMessage += "\nBoss dealt " + (playerHealthBeforeAttack - player.getPlayerhp()) + " damage!";
 
