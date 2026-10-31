@@ -1,4 +1,6 @@
 @echo off
+cd /d "%~dp0"
+
 echo Compiling our Dungeon Game...
 if not exist bin mkdir bin
 javac --release 11 -d bin src\*.java
