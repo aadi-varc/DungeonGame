@@ -126,8 +126,8 @@ Example:
 Enemy HP  = 40
 Enemy DMG = 10
 
-Boss HP   = 100
-Boss DMG  = 20
+Boss HP   = 60
+Boss DMG  = 15
 ```
 
 ---
@@ -158,7 +158,7 @@ Examples:
 ```java
 int health = 100;
 int damage = 10;
-boolean gameOver = false;
+int round = 1;
 ```
 
 ---
@@ -178,7 +178,7 @@ char[][] map;
 Game Loop:
 
 ```java
-while(gameRunning)
+while(true)
 {
 }
 ```
@@ -201,13 +201,13 @@ for(int row = 0; row < map.length; row++)
 Examples:
 
 ```java
-if(isWall)
+if(map[newRow][player.getCol()] != '#')
 {
 }
 ```
 
 ```java
-if(enemyHealth <= 0)
+if(health <= 0)
 {
 }
 ```
@@ -219,13 +219,13 @@ if(enemyHealth <= 0)
 Examples:
 
 ```java
-displayMap();
+updateMap(map, player, enemy, boss, exitRow, exitCol);
 
-movePlayer();
+printMap(map);
 
-battle();
+clearScreen();
 
-restartGame();
+readCommand(scanner);
 ```
 
 ---
@@ -247,7 +247,7 @@ Example:
 
 ```java
 Player player =
-    new Player(100, 10, 1, 1);
+    new Player(100, 20, 1, 1);
 ```
 
 ---
@@ -271,7 +271,7 @@ DungeonGame
 │   ├── Enemy.java
 │   └── Boss.java
 │
-│
+├── run.bat
 └── README.md
 ```
 
@@ -358,6 +358,3 @@ Boss.java
 
 - Restart system
 - Final testing and polishing of the project
-- Optional graphical improvements
-
-
