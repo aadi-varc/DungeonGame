@@ -249,8 +249,14 @@ public class Game {
                     round++;
                     player.setRow(1);
                     player.setCol(1);
-                    enemy = new Enemy(50, 20, 3, 10);
-                    boss = new Boss(60, 10, 6, 7);
+                    enemy.setHealth(50);
+                    enemy.setDamage(20);
+                    enemy.setRow(3);
+                    enemy.setColumn(10);
+                    boss.setHealth(60);
+                    boss.setDamage(10);
+                    boss.setRow(6);
+                    boss.setColumn(7);
 
                     // Move the entrance to the other side of the boss's tunnel.
                     map[5][6] = '.';

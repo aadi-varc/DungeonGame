@@ -6,6 +6,6 @@ public class Boss extends Enemy{
 	@Override
 	public int attack() 
 	{
-		return damage+5;
+		return getDamage()+5;
 	}
 }

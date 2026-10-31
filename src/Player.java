@@ -6,8 +6,8 @@ public class Player {
     private int col;
     
     public Player(int health, int damage, int startingRow, int startingColumn) {
-    	this.playerhp = health;
-        this.maxHealth = health;
+    	this.maxHealth = health;
+    	setPlayerhp(health);
     	this.attack = damage;
     	this.row= startingRow;
     	this.col= startingColumn;
@@ -44,12 +44,16 @@ public int getPlayerhp() {
 }
 
 public void setPlayerhp(int playerhp) {
-	this.playerhp = playerhp;
+	if (playerhp < 0) {
+		this.playerhp = 0;
+	} else {
+		this.playerhp = Math.min(maxHealth, playerhp);
+	}
 }
 
 public int heal(int amount) {
     int previousHealth = playerhp;
-    playerhp = Math.min(maxHealth, playerhp + amount);
+    setPlayerhp(playerhp + amount);
     return playerhp - previousHealth;
 }
 
@@ -59,10 +63,6 @@ public int getAttack()
 	return attack;
 }
 public void takeDamage(int damage) {
-    this.playerhp -= damage;
-    if (this.playerhp < 0) {
-        this.playerhp = 0;
-    }
+    setPlayerhp(this.playerhp - damage);
 }
 }
-
